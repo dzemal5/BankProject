@@ -5,31 +5,28 @@ import java.sql.*;
 
 public class LoginCheck {
 
-    public User checkLogin(String email, String password) throws SQLException,
+    public User checkLogin(String username, String password) throws SQLException,
             ClassNotFoundException {
-        String jdbcURL = "jdbc:mysql://localhost:3306/bookshop";
-        String dbUser = "root";
-        String dbPassword = "password";
+
+        String url = "jdbc:mysql://test.medis.mersys.io:33306";
+        String dbUser = "technostudy";
+        String dbPassword = "zhTPis0l9#$&";
+
+        Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("SELECT * FROM select * from ts_loginPage.loginCreds;");
 
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
-        String sql = "SELECT * FROM users WHERE email = ? and password = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, email);
-        statement.setString(2, password);
-
-        ResultSet result = statement.executeQuery();
 
         User user = null;
 
         if (result.next()) {
             user = new User();
             user.setFullName(result.getString("fullname"));
-            user.setEmail(email);
+            user.setEmail(username);
         }
 
         connection.close();
-
         return user;
     }
 }
