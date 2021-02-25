@@ -14,21 +14,18 @@ public class LoginCheck {
 
         Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
         Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery("SELECT * FROM loginCreds;");
+        ResultSet result = statement.executeQuery(
+                "SELECT * FROM loginCreds where user = " + username + " and password = " + password);
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-
-
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
         User user = null;
 
         if (result.next()) {
             user = new User();
-            user.setFullName(result.getString("fullname"));
-            user.setEmail(username);
+            user.setUser_name(result.getString("username"));
+            user.setPassword(result.getString("password"));
         }
-
         connection.close();
         return user;
     }

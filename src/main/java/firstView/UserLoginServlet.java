@@ -35,14 +35,17 @@ public class UserLoginServlet extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                destPage = "home.jsp";
+                destPage = "second_page.jsp";
             } else {
                 String message = "Invalid email/password";
                 request.setAttribute("message", message);
             }
 
+
+//            destPage = "second_page.jsp";
             RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
             dispatcher.forward(request, response);
+
 
         } catch (SQLException | ClassNotFoundException ex) {
             throw new ServletException(ex);
