@@ -1,12 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dzemal5
-  Date: 2/22/21
-  Time: 3:50 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +57,7 @@
         .logo {
             margin-left: 1rem;
             margin-top: 3rem;
-            length: 150px;
+            length = 150px;
         }
 
         #lgn {
@@ -79,10 +70,10 @@
         }
 
         body {
-            background-image: url('WEB-INF/img/bg2.png');
+            background-image: url('img/bg2.png');
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-size: 100% 100%;}
+            background-size: 100% 100%;
 
         .header-wrapper {
             background-color: #fff;
@@ -91,9 +82,80 @@
             border-left: 10px;
             border-right: 1px
         }
+
+
+        .valid {
+            color: green;
+        }
+
+        .valid:before {
+            position: relative;
+            left: -35px;
+            content: "&#10004;";
+        }
+
+        .invalid {
+            color: red;
+        }
+
+        .invalid:before {
+            position: relative;
+            left: -35px;
+            content: "&#10006;";
+        }
     </style>
+
+    <script>
+        var myInput = document.getElementById("psw");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+
+
+        myInput.onkeyup = function () {
+
+            var lowerCaseLetters = /[a-z]/g;
+            if (myInput.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+
+
+            var upperCaseLetters = /[A-Z]/g;
+            if (myInput.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+
+            var numbers = /[0-9]/g;
+            if (myInput.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+
+            if (myInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+        }
+    </script>
     <div class="header-wrapper" role="banner">
-        <img src="logo.png" width="200" alt="There should be image here" class="logo">
+        <img src="img/logo.png" width="200" alt="There should be image here" class="logo">
         <h2 class="slogan"> JUST ASK FOR THE BEST, WE WILL DO THE REST!</h2><br><br>
     </div>
 </head>
@@ -106,13 +168,15 @@
         <label class="label">Username: <br> <input id="email" placeholder="Enter Username" type="email"
                                                    size="30"/></label><br><br><br>
 
-        <label class="label">Password:<br> <input id="password" placeholder="Enter Password" type="password" size="30"/></label><br><br>
+        <label class="label">Password:<br> <input id="password" placeholder="Enter Password" type="password" size="30"
+                                                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                                  required></label><br><br>
 
         <button id="lgn" type="submit">Log in</button>
 
-        <span id="msg">The User Name and/or Password is not valid. Please check your information and try again.</span>
-
     </form>
 </div>
+
 </body>
 </html>
