@@ -14,7 +14,7 @@ public class LoginCheck {
 
         Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
         Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery("SELECT * FROM select * from ts_loginPage.loginCreds;");
+        ResultSet result = statement.executeQuery("SELECT * FROM ts_loginPage.loginCreds;");
 
         Class.forName("com.mysql.jdbc.Driver");
 
